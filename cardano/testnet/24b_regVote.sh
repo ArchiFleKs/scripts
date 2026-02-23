@@ -197,6 +197,12 @@ for (( tmpCnt=2; tmpCnt<${paramCnt}; tmpCnt++ ))
                   read voteActionAnswer;
                 } <<< $(jq -r "to_entries | (.[0].key // \"-\", (.[0].value | to_entries | (.[0].key // \"-\", .[0].value.anchor.dataHash // \"-\", .[0].value.anchor.url // \"-\", .[0].value.decision // \"-\" )))" <<< "${voteJSON}")
 
+		#Additionally read the description from the voting file
+		voteActionDescription=$(jq -r '.description // "-"' 2> /dev/null "${metafile}");
+
+		#Show the Description
+		echo -e "\e[0m      Description: \e[33m${voteActionDescription}\e[0m";
+
 		#Get voteType
 		case ${voteActionVoter%%-*} in
 			"committee") voteType="Committee";;
