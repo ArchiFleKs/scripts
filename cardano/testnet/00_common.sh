@@ -1153,7 +1153,7 @@ convert_tokenName2BECH() {
 	#${2} = assetName in ASCII or empty
 local tmp_policyID=$(trimString "${1}") #make sure there are not spaces before and after
 local tmp_assetName=$(trimString "${2}")
-if [[ ! "${tmp_assetName}" == "" ]]; then local tmp_assetName=$(echo -n "${tmp_assetName}" | xxd -b -ps -c 80 | tr -d '\n'); fi
+if [[ ! "${tmp_assetName}" == "" ]]; then local tmp_assetName=$(echo -n "${tmp_assetName}" | xxd -ps -c 80 | tr -d '\n'); fi
 
 #echo -n "${tmp_policyID}${tmp_assetName}" | xxd -r -ps | b2sum -l 160 -b | cut -d' ' -f 1 | ${bech32_bin} asset
 echo -n "${tmp_policyID}${tmp_assetName}" | xxd -r -ps | b2sum -l 160 -b | awk {'print $1'} | ${bech32_bin} asset
@@ -1164,7 +1164,7 @@ echo -n "${tmp_policyID}${tmp_assetName}" | xxd -r -ps | b2sum -l 160 -b | awk {
 #-------------------------------------------------------
 #Convert ASCII assetName into HEX assetName
 convert_assetNameASCII2HEX() {
-echo -n "${1}" | xxd -b -ps -c 80 | tr -d '\n'
+echo -n "${1}" | xxd -ps -c 80 | tr -d '\n'
 }
 #-------------------------------------------------------
 
